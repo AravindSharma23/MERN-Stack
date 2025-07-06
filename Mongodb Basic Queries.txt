@@ -1,0 +1,94 @@
+Mongodb 
+
+step1 : Run cmd as administrator 
+step2 : Need to use mongodb command in cmd means use mongosh
+
+DB's list -> show dbs
+create a new db :
+   use shop
+   db.products.insertOne({}) <-- give a json inside this method
+
+  ---> Insert into DB :
+
+   Eg : db.products.insertOne({name:"Harry Potter Book" , price:30.00})
+
+  ---> Retrieve one record from DB :
+   Eg : db.products.findOne() 
+   
+ ---->  Retrieve all record from DB :
+   Eg : db.products.find()
+   
+----->  To get particular value 
+   Eg : db.employee.findOne({name:"Aravind"})
+
+------> To filter based on position :
+   EG :  db.employee.find({"details.position":"PHP Developer"})
+
+------> To update a single exisiting value : 
+   EG : db.employee.updateOne({name:"Aravind"},{$set:{"details.position":"Front end Developer"}})
+
+------> To update many values based on position :
+   EG :  db.employee.updateMany({"details.position":"Front end Developer"},{$set:{"details.salary":9000}})
+
+------> Create a collection as empty :
+   EG :  db.createCollection("users",{ })
+
+----- > Greater than :
+   EG : db.employee.find({"details.salary":{$gt : 5000}})
+
+------> Lesser than :
+   EG :  db.employee.find({"details.salary":{$lt : 5000}})
+
+------> To get a data in array format:
+  Eg : db.customers.find().toArray()
+
+-----> To get data in one by one using forEach() :
+  Eg : db.customers.find().forEach((data)=>{print(data)})
+
+------> Projection 
+   Eg :  db.employee.find({},{name:1,_id:0,is_employee : "true"}) 
+//  name only needed so give it as 1 and no need of id so give it as 0 and adding additional field is_employee
+
+------> Setting limit when retrieve :
+ 
+    Eg : db.customers.find().limit(2)
+
+------> Skiping data from initial :
+    Eg : db.customers.find().skip(5)  // skips 1st 5 records
+
+------> To sort data in ascending based on name :
+     Eg : db.customers.find().sort({name:1}) // descending means use -1
+
+
+Query Operators :
+
+------> Equal :
+ Eg :  db.workers.find({email:{$eq : "keerthi.l@example.com"}})
+
+------> Not Equal :
+Eg : db.workers.find({email:{$ne : "keerthi.l@example.com"}})
+
+------> Greater than or Equal to :
+Eg : db.workers.find({age :{$gte : 29}})
+
+-----> Lesser than or equal to :
+ Eg : db.workers.find({age :{$lte : 29}})
+
+------> In operator :
+Eg : db.workers.find({age :{$in : [24,30,33,42]}})
+
+------> Comparison Operator - and :
+Eg : db.workers.find({$and : [{salary : {$gte : 3000}},{age : {$gt : 20}}]})
+
+------> Comparison Operator - or :
+Eg : db.workers.find({$or : [{salary : {$gt : 7000}},{age : {$gt : 20}}]})
+
+------> Regex :
+Eg : db.workers.find({name:{$regex : /^S/,$options:'i'}}) // options for case insensitive
+
+------> To allow js expression :
+Eg : db.workers.find({$where : function(){return this.name == 'Santhosh K';  }})
+
+------> $text : performs a text search on content :
+Eg : 
+
